@@ -8,8 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
 
 //JWT
 use JWTAuth;
@@ -28,14 +28,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'address' => 'required|string|max:255',
             'cif_nif' => 'required|string|unique:users',
             'image' => 'required|string|max:255',
-            'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'password' => 'required|string|min:8',
         ]);
 
         $user = User::create([

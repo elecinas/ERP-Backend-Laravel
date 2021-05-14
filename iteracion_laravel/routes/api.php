@@ -40,7 +40,7 @@ Route::delete('/users/employees/{id}', [EmployeeController::class, 'destroy']);
 
 
 //AUTH
-Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/auth/register', [RegisteredUserController::class, 'store']);
+Route::post('/auth/login', [AuthenticatedSessionController::class, 'store']);
 Route::get('/auth/logout', [AuthenticatedSessionController::class, 'destroy'])
             ->middleware('jwt.verify');
