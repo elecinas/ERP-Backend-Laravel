@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,10 @@ Route::post('/users/clients', [ClientController::class, 'store']);
 Route::get('/users/clients/{id}', [ClientController::class, 'show']);
 Route::put('/users/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/users/clients/{id}', [ClientController::class, 'destroy']);
+
+//CRUD de Employee
+Route::get('/users/employees', [EmployeeController::class, 'index']);
+Route::post('/users/employees', [EmployeeController::class, 'store']);
+Route::get('/users/employees/{id}', [EmployeeController::class, 'show']);
+Route::put('/users/employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('/users/employees/{id}', [EmployeeController::class, 'destroy']);
