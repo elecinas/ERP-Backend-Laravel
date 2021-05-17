@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 //Clients & Employees
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
 
 //Auth
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -37,6 +38,13 @@ Route::post('/users/employees', [EmployeeController::class, 'store']);
 Route::get('/users/employees/{id}', [EmployeeController::class, 'show']);
 Route::put('/users/employees/{id}', [EmployeeController::class, 'update']);
 Route::delete('/users/employees/{id}', [EmployeeController::class, 'destroy']);
+
+//CRUD de Product
+Route::get('/products', [ProductController::class, 'index']);
+Route::post('/products', [ProductController::class, 'store']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
+Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
 
 //AUTH
