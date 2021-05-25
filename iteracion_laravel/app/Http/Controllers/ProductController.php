@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return response()->json($products, 201);
+        return response()->json($products, 200);
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductController extends Controller
             'success' => true,
             'message' => 'Product creado correctamente',
             'user' => $product,
-        ], status:200);
+        ], status:201);
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        return response()->json($product, 201);
+        return response()->json($product, 200);
     }
 
     /**
@@ -71,7 +71,7 @@ class ProductController extends Controller
             'success' => true,
             'message' => 'Product actualizado correctamente',
             'user' => $product,
-        ], status:200);
+        ], status:201);
     }
 
     /**
