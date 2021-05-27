@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 use App\Models\User;
 
 class Usertest extends TestCase
@@ -20,6 +21,9 @@ class Usertest extends TestCase
     function user_can_be_created()
     {
         $this->withoutExceptionHandling();
+        User::truncate();
+
+        $this->assertEquals(0, User::count());
 
         $this->post('/api/auth/register', [
             'name' => 'Mago',
@@ -30,11 +34,12 @@ class Usertest extends TestCase
             'password' => 'iloveswing',
         ]);
 
-        $this->assertCredentials([
-            'name' => 'Mago',
-            'email' => 'mago@mail.com',
-            'password' => 'iloveswing',
-        ]);
+        $this->assertEquals(1, User::count());
+
+        $user = User::first();
+        $this->assertEquals('Mago', $user->name);
+        $this->assertEquals('mago@mail.com', $user->email);
+        $this->assertEquals('44963200V', $user->cif_nif);
 
     }
 
@@ -60,15 +65,17 @@ class Usertest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->get('/api/auth/logout', [
+        $token = Str::random(20);
+
+        $response = $this->withHeaders([
+            'Bearer' => $token,
+        ])->get('/api/auth/logout', [
             'email' => 'mago@mail.com',
             'password' => 'iloveswing',
         ]);
 
-        $this->assertCredentials([
-            'email' => 'mago@mail.com',
-            'password' => 'iloveswing',
-        ]);
+
+        $response->assertStatus(200);
 
     }
 }
